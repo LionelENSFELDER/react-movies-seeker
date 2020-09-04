@@ -97,7 +97,55 @@ function App() {
 
 	return (
 		<div className="App">
-			<h1 className="display-3">Movies Seeker</h1>
+
+
+
+
+
+			<div class="container-fluid h-100">
+			<div class="row h-100">
+				<aside class="col-12 col-md-3 p-0 bg-dark">
+					<nav class="navbar navbar-expand navbar-dark bg-dark flex-md-column flex-row align-items-start">
+						<div class="collapse navbar-collapse">
+						<ul class="flex-md-column flex-row navbar-nav w-100 justify-content-between">
+							<span className="display-5">Movies Seeker</span>
+							<li class="nav-item">
+							<a class="nav-link pl-0" href="#">Menu 1</a>
+							</li>
+							<form onSubmit={onSubmit}>
+								<div className="input-group w-100">
+									<input type="text" className="form-control" placeholder="Search" onChange={onChange}/>
+								</div>
+							</form>            
+						</ul>
+						</div>
+					</nav>
+				</aside>
+				<main class="col">
+					<h1 className="display-3">Movies Seeker</h1>
+
+					{state.isLoading ? (
+						<CircularProgress/>
+						) : state.isError ? (
+						<p className="text-danger">Data failed to load</p>
+						) : (
+						<MoviesList movies={state.movies}/>
+					)}
+
+					
+				</main>
+			</div>
+			</div>
+
+
+
+
+
+
+
+
+
+			{/* <h1 className="display-3">Movies Seeker</h1>
 			<form onSubmit={onSubmit}>
 				<div className="input-group mb-3">
 					<div className="input-group-prepend">
@@ -113,7 +161,7 @@ function App() {
 				<p className="text-danger">Data failed to load</p>
 				) : (
 				<MoviesList movies={state.movies}/>
-			)}
+			)} */}
 
 		</div>
   	);
