@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect, useReducer } from 'react'
 import axios from 'axios'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import Logo from './assets/popcorn.svg'
 import MoviesList from './components/MoviesList'
 import './App.css';
 
@@ -99,30 +100,28 @@ function App() {
 		<div className="App">
 
 
-
-
-
-			<div class="container-fluid h-100">
-			<div class="row h-100">
-				<aside class="col-12 col-md-3 p-0 bg-dark">
-					<nav class="navbar navbar-expand navbar-dark bg-dark flex-md-column flex-row align-items-start">
-						<div class="collapse navbar-collapse">
-						<ul class="flex-md-column flex-row navbar-nav w-100 justify-content-between">
-							<span className="display-5">Movies Seeker</span>
-							<li class="nav-item">
-							<a class="nav-link pl-0" href="#">Menu 1</a>
-							</li>
-							<form onSubmit={onSubmit}>
-								<div className="input-group w-100">
-									<input type="text" className="form-control" placeholder="Search" onChange={onChange}/>
-								</div>
-							</form>            
-						</ul>
-						</div>
-					</nav>
-				</aside>
-				<main class="col">
-					<h1 className="display-3">Movies Seeker</h1>
+			<div className="container-fluid h-100">
+			<div className="row h-100">
+					<div className="sticky-top col-12 col-lg-2 bg-dark-light">
+						<nav className="navbar navbar-expand navbar-dark bg-transparent flex-md-column flex-row align-items-start">
+							<div className="collapse navbar-collapse">
+								<ul className="flex-md-column flex-row navbar-nav w-100 justify-content-between">
+									<div className="">
+										<img className="mx-auto" src={Logo} alt="Logo" width="100"/>
+									</div>
+									<li className="nav-item">
+										<a className="nav-link pl-0" href="#">Menu 1</a>
+									</li>
+									<form onSubmit={onSubmit}>
+										<div className="input-group w-100">
+											<input type="text" className="form-control" placeholder="Search" onChange={onChange}/>
+										</div>
+									</form>            
+								</ul>
+							</div>
+						</nav>
+					</div>
+				<main className="col p-5">
 
 					{state.isLoading ? (
 						<CircularProgress/>
