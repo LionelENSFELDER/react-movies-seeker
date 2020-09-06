@@ -39,14 +39,3 @@ body{
 .bg-green{
   background-color: #01F98F;
 }
-
-@media (max-width:769px) {
-  /* aside{
-    position: sticky;
-    z-index: 9999;
-    top: 0;
-    left:0;
-    height: 100%;
-    width: 100%;
-  } */
-}

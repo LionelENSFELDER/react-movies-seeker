@@ -102,25 +102,25 @@ function App() {
 
 			<div className="container-fluid h-100">
 			<div className="row h-100">
-					<div className="sticky-top col-12 col-lg-2 bg-dark-light">
-						<nav className="navbar navbar-expand navbar-dark bg-transparent flex-md-column flex-row align-items-start">
-							<div className="collapse navbar-collapse">
-								<ul className="flex-md-column flex-row navbar-nav w-100 justify-content-between">
-									<div className="">
-										<img className="mx-auto" src={Logo} alt="Logo" width="100"/>
+				<div id="menu-column" className="sticky-top col-12 col-md-2 bg-dark-light">
+					<nav className="navbar navbar-expand navbar-dark bg-transparent flex-md-column flex-row align-items-start">
+						<div className="collapse navbar-collapse">
+							<ul className="flex-md-column flex-row navbar-nav w-100 justify-content-between">
+								<div className="">
+									<img className="mx-auto" src={Logo} alt="Logo" width="100"/>
+								</div>
+								<li className="nav-item">
+									<a className="nav-link pl-0" href="#">Menu 1</a>
+								</li>
+								<form onSubmit={onSubmit}>
+									<div className="input-group w-100">
+										<input type="text" className="form-control" placeholder="Search" onChange={onChange}/>
 									</div>
-									<li className="nav-item">
-										<a className="nav-link pl-0" href="#">Menu 1</a>
-									</li>
-									<form onSubmit={onSubmit}>
-										<div className="input-group w-100">
-											<input type="text" className="form-control" placeholder="Search" onChange={onChange}/>
-										</div>
-									</form>            
-								</ul>
-							</div>
-						</nav>
-					</div>
+								</form>            
+							</ul>
+						</div>
+					</nav>
+				</div>
 				<main className="col p-5">
 
 					{state.isLoading ? (
