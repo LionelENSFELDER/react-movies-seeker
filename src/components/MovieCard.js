@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
+
 
 function MovieCard({ movie }) {
+    let genres = "";
+    let genreListIds = movie.genre_ids;
+
     return movie.poster_path ?(
         <div className="col mb-4">
             <div className="card bg-transparent h-100 text-left border-0 stretched-link" data-toggle="modal" data-target={`#modal_${movie.id}`}>
             <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} className="card-img-top" alt="..."/>
             <div className="position-relative">
-                <span class="movie-vote-pill rounded-circle bg-green p-1 font-weight-bold">{movie.vote_average}</span>
+                <span className="movie-vote-pill rounded-circle bg-green p-1 font-weight-bold">{movie.vote_average}</span>
             </div>
             <div className="card-body text-white">
                 <h5 className="card-title">{movie.title}</h5>
@@ -25,16 +29,16 @@ function MovieCard({ movie }) {
 
 
 
-                    <div class="row no-gutters">
-                        <div class="col-md-4">
-                        <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} class="card-img" alt="..."/>
+                    <div className="row no-gutters">
+                        <div className="col-md-4">
+                        <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} className="card-img" alt="..."/>
                         </div>
-                        <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title" id={`modal_label_${movie.id}`}>{movie.title}</h5>
-                            <p className="card-text"><small class="text-muted">Release date: {movie.release_date}</small></p>
-                            <p className="card-text"><small class="text-muted">Genre: {movie.genre_ids}</small></p>
-                            <p className="card-text"><small class="text-muted">Vote average: {movie.vote_average}</small></p>
+                        <div className="col-md-8">
+                        <div className="card-body">
+                            <h5 className="card-title" id={`modal_label_${movie.id}`}>{movie.title}</h5>
+                            <p className="card-text"><small className="text-muted">Release date: {movie.release_date}</small></p>
+                            <p className="card-text"><small className="text-muted">Genre: {movie.genre_ids}</small></p>
+                            <p className="card-text"><small className="text-muted">Vote average: {movie.vote_average}</small></p>
                             <p className="card-text">Synopsis: {movie.overview}</p>
                         </div>
                         </div>

@@ -14,6 +14,7 @@ function App() {
 		movies: [],
 		isLoading: false,
 		isError: false,
+		genres: []
   	}
 
 	const ACTION = {
@@ -22,6 +23,7 @@ function App() {
 		FETCH_DATA: "FETCH_DATA",
 		FETCH_DATA_SUCCESS: "FETCH_DATA_SUCCESS",
 		FETCH_DATA_FAIL: "FETCH_DATA_FAIL",
+		FETCH_DATA_GENRE_SUCCESS: "FETCH_DATA_GENRE_SUCCESS",
   	}
 
 	function onChange(event) {
@@ -66,6 +68,11 @@ function App() {
 					...state,
 					isError: true
 				};
+			case ACTION.FETCH_DATA_GENRE_SUCCESS:
+				return {
+					...state,
+					genres: action.value
+				};
 			default:
 				return state;
 		}
@@ -76,24 +83,42 @@ function App() {
 	const API_Key = "3047ca0f5fac291860193498b5d24f44";
 	useEffect(() => {
 		if (state.submittedMovieTitle) {
-		  const fetchData = async () => {
-			dispatch({ type: "FETCH_DATA" });
-			try {
-			  const result = await axios(
-				`https://api.themoviedb.org/3/search/movie?api_key=${API_Key}&query=${state.submittedMovieTitle}`
-			  );
-			  console.log(result);
-			  dispatch({
-				type: ACTION.FETCH_DATA_SUCCESS,
-				value: result.data.results,
-			  });
-			} catch (error) {
-			  dispatch({ type: "FETCH_FAILURE" });
-			}
+			const fetchData = async () => {
+				dispatch({ type: "FETCH_DATA" });
+				try {
+				const result = await axios(
+					`https://api.themoviedb.org/3/search/movie?api_key=${API_Key}&query=${state.submittedMovieTitle}`
+				);
+				console.log(result);
+				dispatch({
+					type: ACTION.FETCH_DATA_SUCCESS,
+					value: result.data.results,
+				});
+				} catch (error) {
+				dispatch({ type: "FETCH_FAILURE" });
+				}
 		  };
 		  fetchData();
 		}
 	}, [state.submittedMovieTitle]);
+
+	
+	useEffect(() => {
+		const fetchDataGenre = async () => {
+			dispatch({ type: "FETCH_DATA" });
+			try {
+				const genresObj = await axios(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_Key}&language=en-US`);
+				console.log(genresObj);
+			dispatch({
+				type: ACTION.FETCH_DATA_SUCCESS,
+				value: genresObj.data.genres,
+			});
+			} catch (error) {
+			dispatch({ type: "FETCH_FAILURE" });
+			}
+		};
+		fetchDataGenre();
+	}, [state.genres]);
 
 
 	return (
