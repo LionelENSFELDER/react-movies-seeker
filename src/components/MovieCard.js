@@ -4,9 +4,8 @@ import React from 'react'
 function MovieCard({movie, data}){
     const genreIds = movie.genre_ids;
     const genres = data.genres;
-    let genresDisplayed = "";
     return movie.poster_path ?(
-        <div className="col mb-4">
+        <div className="col mb-4" data-tag={genreIds.map(x => genres.find(o => o.id === x).name)}>
             <div className="card bg-transparent h-100 text-left border-0 stretched-link" data-toggle="modal" data-target={`#modal_${movie.id}`}>
             <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} className="card-img-top" alt="..."/>
             <div className="position-relative">
@@ -15,11 +14,11 @@ function MovieCard({movie, data}){
             <div className="card-body text-white">
                 <h5 className="card-title">{movie.title}</h5>
 
-                <span class="badge badge-light">
+                <div class="">
                     {genreIds.map(x => 
-                        genreIds.indexOf(x) === genreIds.length - 1 ? genres.find(o => o.id === x).name : genres.find(o => o.id === x).name + ", "
+                        <span class="badge badge-light mr-2">{genres.find(o => o.id === x).name}</span>
                     )}
-                </span>
+                </div>
 
                 
                 <div className="modal fade" id={`modal_${movie.id}`} tabIndex="-1" aria-labelledby={`modal_label_${movie.id}`} aria-hidden="true">
@@ -42,7 +41,13 @@ function MovieCard({movie, data}){
                         <div className="card-body">
                             <h5 className="card-title" id={`modal_label_${movie.id}`}>{movie.title}</h5>
                             <p className="card-text"><small className="text-muted">Release date: {movie.release_date}</small></p>
-                            <p className="card-text"><small className="text-muted">Genre: {movie.genre_ids}</small></p>
+                            <p className="card-text">
+                                <small className="text-muted">Genre: &nbsp;
+                                    {genreIds.map(x => 
+                                        genreIds.indexOf(x) === genreIds.length - 1 ? genres.find(o => o.id === x).name : genres.find(o => o.id === x).name + ", "
+                                    )}
+                                </small>
+                            </p>
                             <p className="card-text"><small className="text-muted">Vote average: {movie.vote_average}</small></p>
                             <p className="card-text">Synopsis: {movie.overview}</p>
                         </div>

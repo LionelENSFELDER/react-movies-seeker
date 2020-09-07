@@ -5,6 +5,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Logo from './assets/popcorn.svg'
 import MoviesList from './components/MoviesList'
+import MainMenuItem from './components/MainMenuItem'
 import './App.css';
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
 		movies: [],
 		isLoading: false,
 		isError: false,
-		genres: []
+		genres: [],
   	}
 
 	const ACTION = {
@@ -151,9 +152,13 @@ function App() {
 								<div className="">
 									<img className="mx-auto" src={Logo} alt="Logo" width="100"/>
 								</div>
-								<li className="nav-item">
-									<a className="nav-link pl-0" href="#">Menu 1</a>
-								</li>
+								{state.isLoading ? (
+									<CircularProgress/>
+									) : state.isError ? (
+									<p className="text-danger">Data failed to load</p>
+									) : (
+									<MainMenuItem genres={state.genres}/>
+								)}
 								<form onSubmit={onSubmit}>
 									<div className="input-group w-100">
 										<input type="text" className="form-control" placeholder="Search" onChange={onChange}/>
