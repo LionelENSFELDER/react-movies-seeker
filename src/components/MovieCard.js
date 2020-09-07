@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 
-function MovieCard({ movie }) {
-    let genres = "";
-    let genreListIds = movie.genre_ids;
-
+function MovieCard({movie, data}){
+    const genreIds = movie.genre_ids;
+    const genres = data.genres;
+    let genresDisplayed = "";
     return movie.poster_path ?(
         <div className="col mb-4">
             <div className="card bg-transparent h-100 text-left border-0 stretched-link" data-toggle="modal" data-target={`#modal_${movie.id}`}>
@@ -14,7 +14,12 @@ function MovieCard({ movie }) {
             </div>
             <div className="card-body text-white">
                 <h5 className="card-title">{movie.title}</h5>
-                <p className="card-text">{movie.genre_ids}</p>
+
+                <span class="badge badge-light">
+                    {genreIds.map(x => 
+                        genreIds.indexOf(x) === genreIds.length - 1 ? genres.find(o => o.id === x).name : genres.find(o => o.id === x).name + ", "
+                    )}
+                </span>
 
                 
                 <div className="modal fade" id={`modal_${movie.id}`} tabIndex="-1" aria-labelledby={`modal_label_${movie.id}`} aria-hidden="true">

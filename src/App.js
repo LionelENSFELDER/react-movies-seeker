@@ -1,6 +1,7 @@
 import React from 'react'
 import { useEffect, useReducer } from 'react'
 import axios from 'axios'
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Logo from './assets/popcorn.svg'
 import MoviesList from './components/MoviesList'
@@ -23,7 +24,7 @@ function App() {
 		FETCH_DATA: "FETCH_DATA",
 		FETCH_DATA_SUCCESS: "FETCH_DATA_SUCCESS",
 		FETCH_DATA_FAIL: "FETCH_DATA_FAIL",
-		FETCH_DATA_GENRE_SUCCESS: "FETCH_DATA_GENRE_SUCCESS",
+		FETCH_DATA_GENRES_SUCCESS: "ACTION.FETCH_DATA_GENRES_SUCCESS",
   	}
 
 	function onChange(event) {
@@ -55,23 +56,24 @@ function App() {
 			case ACTION.FETCH_DATA:
 				return {
 					...state,
-					isLoading: true
+					isLoading: true,
 				};
 			case ACTION.FETCH_DATA_SUCCESS:
 				return {
 					...state,
 					movies: action.value,
-					isLoading: false
+					isLoading: false,
 				};
 			case ACTION.FETCH_DATA_FAIL:
 				return {
 					...state,
-					isError: true
+					isError: true,
 				};
-			case ACTION.FETCH_DATA_GENRE_SUCCESS:
+			case ACTION.FETCH_DATA_GENRES_SUCCESS:
 				return {
 					...state,
-					genres: action.value
+					isError: false,
+					genres: action.value,
 				};
 			default:
 				return state;
@@ -86,39 +88,54 @@ function App() {
 			const fetchData = async () => {
 				dispatch({ type: "FETCH_DATA" });
 				try {
-				const result = await axios(
-					`https://api.themoviedb.org/3/search/movie?api_key=${API_Key}&query=${state.submittedMovieTitle}`
-				);
-				console.log(result);
-				dispatch({
-					type: ACTION.FETCH_DATA_SUCCESS,
-					value: result.data.results,
-				});
+					const result = await axios(`https://api.themoviedb.org/3/search/movie?api_key=${API_Key}&query=${state.submittedMovieTitle}`);
+					console.log(result.data.results);
+					dispatch({
+						type: ACTION.FETCH_DATA_SUCCESS,
+						value: result.data.results,
+					});
 				} catch (error) {
-				dispatch({ type: "FETCH_FAILURE" });
+					dispatch({ type: "FETCH_FAILURE" });
 				}
-		  };
+			};
 		  fetchData();
 		}
-	}, [state.submittedMovieTitle]);
 
-	
-	useEffect(() => {
-		const fetchDataGenre = async () => {
+		const fetchDataGenres = async () => {
 			dispatch({ type: "FETCH_DATA" });
 			try {
-				const genresObj = await axios(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_Key}&language=en-US`);
-				console.log(genresObj);
+			const result = await axios(
+				`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_Key}&language=en-US`
+			);
+			console.log(result.data.genres);
 			dispatch({
-				type: ACTION.FETCH_DATA_SUCCESS,
-				value: genresObj.data.genres,
+				type: ACTION.FETCH_DATA_GENRES_SUCCESS,
+				value: result.data.genres,
 			});
 			} catch (error) {
 			dispatch({ type: "FETCH_FAILURE" });
 			}
 		};
-		fetchDataGenre();
-	}, [state.genres]);
+		fetchDataGenres();
+
+	}, [state.submittedMovieTitle]);
+
+	
+	// useEffect(() => {
+	// 	const fetchDataGenre = async () => {
+	// 		try {
+	// 			const genresObj = await axios(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_Key}&language=en-US`);
+	// 			console.log(state.genre);
+	// 			dispatch({
+	// 				type: ACTION.FETCH_DATA_GENRE_SUCCESS,
+	// 				value: genresObj.data.genres,
+	// 			});
+	// 		} catch (error) {
+	// 			dispatch({ type: "FETCH_FAILURE" });
+	// 		}
+	// 	};
+	// 	fetchDataGenre();
+	// }, []);
 
 
 	return (
@@ -153,7 +170,7 @@ function App() {
 						) : state.isError ? (
 						<p className="text-danger">Data failed to load</p>
 						) : (
-						<MoviesList movies={state.movies}/>
+						<MoviesList movies={state.movies} data={state}/>
 					)}
 
 					
