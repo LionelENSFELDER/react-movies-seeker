@@ -14,9 +14,9 @@ function MovieCard({movie, data}){
             <div className="card-body text-white">
                 <h5 className="card-title">{movie.title}</h5>
 
-                <div class="">
+                <div className="">
                     {genreIds.map(x => 
-                        <span class="badge badge-light mr-2">{genres.find(o => o.id === x).name}</span>
+                        <span className="badge badge-light mr-2">{genres.find(o => o.id === x).name}</span>
                     )}
                 </div>
 

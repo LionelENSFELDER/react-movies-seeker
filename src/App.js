@@ -121,94 +121,49 @@ function App() {
 
 	}, [state.submittedMovieTitle]);
 
-	
-	// useEffect(() => {
-	// 	const fetchDataGenre = async () => {
-	// 		try {
-	// 			const genresObj = await axios(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_Key}&language=en-US`);
-	// 			console.log(state.genre);
-	// 			dispatch({
-	// 				type: ACTION.FETCH_DATA_GENRE_SUCCESS,
-	// 				value: genresObj.data.genres,
-	// 			});
-	// 		} catch (error) {
-	// 			dispatch({ type: "FETCH_FAILURE" });
-	// 		}
-	// 	};
-	// 	fetchDataGenre();
-	// }, []);
-
-
 	return (
 		<div className="App">
 
 
 			<div className="container-fluid h-100">
-			<div className="row h-100">
-				<div id="menu-column" className="sticky-top col-12 col-md-2 bg-dark-light">
-					<nav className="navbar navbar-expand navbar-dark bg-transparent flex-md-column flex-row align-items-start">
-						<div className="collapse navbar-collapse">
-							<ul className="flex-md-column flex-row navbar-nav w-100 justify-content-between">
-								<div className="">
-									<img className="mx-auto" src={Logo} alt="Logo" width="100"/>
-								</div>
-								{state.isLoading ? (
-									<CircularProgress/>
-									) : state.isError ? (
-									<p className="text-danger">Data failed to load</p>
-									) : (
-									<MainMenuItem genres={state.genres}/>
-								)}
-								<form onSubmit={onSubmit}>
-									<div className="input-group w-100">
-										<input type="text" className="form-control" placeholder="Search" onChange={onChange}/>
+				<div className="row h-100">
+					<div id="menu-column" className="sticky-top col-12 col-md-2 bg-dark-light">
+						<nav className="navbar navbar-expand navbar-dark bg-transparent flex-md-column flex-row align-items-start">
+							<div className="collapse navbar-collapse">
+								<ul className="flex-md-column flex-row navbar-nav w-100 justify-content-between">
+									<div className="">
+										<img className="mx-auto" src={Logo} alt="Logo" width="100"/>
 									</div>
-								</form>            
-							</ul>
-						</div>
-					</nav>
-				</div>
-				<main className="col p-5">
-
-					{state.isLoading ? (
-						<CircularProgress/>
-						) : state.isError ? (
-						<p className="text-danger">Data failed to load</p>
-						) : (
-						<MoviesList movies={state.movies} data={state}/>
-					)}
-
-					
-				</main>
-			</div>
-			</div>
-
-
-
-
-
-
-
-
-
-			{/* <h1 className="display-3">Movies Seeker</h1>
-			<form onSubmit={onSubmit}>
-				<div className="input-group mb-3">
-					<div className="input-group-prepend">
-						<span className="input-group-text" id="inputGroup-sizing-default">Default</span>
+									{state.isLoading ? (
+										<CircularProgress/>
+										) : state.isError ? (
+										<p className="text-danger">Data failed to load</p>
+										) : (
+										<MainMenuItem key={MainMenuItem.id} genres={state.genres}/>
+									)}
+									<form onSubmit={onSubmit}>
+										<div className="input-group w-100">
+											<input type="text" className="form-control" placeholder="Search" onChange={onChange}/>
+										</div>
+									</form>            
+								</ul>
+							</div>
+						</nav>
 					</div>
-					<input type="text" className="form-control" placeholder="Search" onChange={onChange}/>
+					<main className="col p-5">
+
+						{state.isLoading ? (
+							<CircularProgress/>
+							) : state.isError ? (
+							<p className="text-danger">Data failed to load</p>
+							) : (
+							<MoviesList movies={state.movies} data={state}/>
+						)}
+
+						
+					</main>
 				</div>
-			</form>
-
-			{state.isLoading ? (
-				<CircularProgress/>
-				) : state.isError ? (
-				<p className="text-danger">Data failed to load</p>
-				) : (
-				<MoviesList movies={state.movies}/>
-			)} */}
-
+			</div>
 		</div>
   	);
 }
