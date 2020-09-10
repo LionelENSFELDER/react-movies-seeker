@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react'
 
-function MainMenuItem({genres}) {
+function GenreSelect({genres, data}) {
 
     let [selectedFilter, setSelectedFilter] = useState("");
+    let [selectValue, setSelectValue] = useState("");
 
     function handleGenreSelected(event){
-        setSelectedFilter(event.target.value); 
+        setSelectedFilter(event.target.value);
+        setSelectValue(event.target.value);
     }
 
     useEffect(() => {
@@ -36,8 +38,7 @@ function MainMenuItem({genres}) {
     return (
         <div>
             <p className="text-white">" {selectedFilter} " is selected</p>
-            <select className="custom-select mb-3" onChange={handleGenreSelected}>
-                <option value="">Select a genre</option>
+            <select className="custom-select mb-3" value={selectValue} onChange={handleGenreSelected}>
                 <option value="All" data-filter="All">All</option>
                 {genres.map(x=>
                     <option key={x.id} value={x.name} data-filter={x.name}>{x.name}</option>
@@ -47,4 +48,4 @@ function MainMenuItem({genres}) {
     )
 }
 
-export default MainMenuItem;
+export default GenreSelect;
