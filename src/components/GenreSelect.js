@@ -1,13 +1,11 @@
 import React, {useState, useEffect} from 'react'
 
-function GenreSelect({genres, data}) {
+function GenreSelect({genres}) {
 
-    let [selectedFilter, setSelectedFilter] = useState("");
-    let [selectValue, setSelectValue] = useState("");
+    let [selectedFilter, setSelectedFilter] = useState("All");
 
     function handleGenreSelected(event){
         setSelectedFilter(event.target.value);
-        setSelectValue(event.target.value);
     }
 
     useEffect(() => {
@@ -37,8 +35,7 @@ function GenreSelect({genres, data}) {
 
     return (
         <div>
-            <p className="text-white">" {selectedFilter} " is selected</p>
-            <select className="custom-select mb-3" value={selectValue} onChange={handleGenreSelected}>
+            <select className="custom-select mb-3" value={selectedFilter} onChange={handleGenreSelected}>
                 <option value="All" data-filter="All">All</option>
                 {genres.map(x=>
                     <option key={x.id} value={x.name} data-filter={x.name}>{x.name}</option>

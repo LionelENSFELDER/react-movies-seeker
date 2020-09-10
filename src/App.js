@@ -29,7 +29,8 @@ function App() {
 		FETCH_DATA_GENRES_SUCCESS: "ACTION.FETCH_DATA_GENRES_SUCCESS",
 		SUBMIT_POPULAR: "SUBMIT_POPULAR",
 		FETCH_DATA_POPULAR_SUCCESS: "ACTION.FETCH_DATA_POPULAR_SUCCESS",
-  	}
+	}
+
 
 	function onChange(event) {
 		dispatch({
@@ -50,6 +51,7 @@ function App() {
 		dispatch({
 			type: ACTION.SUBMIT_POPULAR,
 		});
+		console.log(state);
     }
 
 	const reducer = (state, action) => {
@@ -91,8 +93,8 @@ function App() {
 				return {
 					...state,
 					submittedMovieTitle: "",
-					popular: true,
 					typedInMovieTitle: "",
+					popular: true,
 				};
 			case ACTION.FETCH_DATA_POPULAR_SUCCESS:
 				return {
@@ -111,7 +113,7 @@ function App() {
 	const API_Key = "3047ca0f5fac291860193498b5d24f44";
 
 	useEffect(() => {
-		if (state.submittedMovieTitle != "") {
+		if (state.submittedMovieTitle !== "") {
 			const fetchData = async () => {
 				dispatch({ type: "FETCH_DATA" });
 				try {
@@ -159,7 +161,7 @@ function App() {
 			fetchPopularMovies();
 		};
 
-	}, [state.submittedMovieTitle, state.popular, state.selectValueState]);
+	}, [state.submittedMovieTitle, state.popular]);
 
 	return (
 		<div className="App">
@@ -172,21 +174,14 @@ function App() {
 							<div className="collapse navbar-collapse">
 								<ul className="flex-md-column flex-row navbar-nav w-100 justify-content-between">
 									<div className="mb-5">
-										<img className="mx-auto" src={Logo} alt="Logo" width="100"/>
+										<img className="mx-auto d-block" src={Logo} alt="Logo" width="100"/>
 									</div>
 									<div className="">
-										<button type="button" className="btn btn-block btn-light" onClick={handleGetPopular}>Popular</button>
+										<button type="button" className="btn btn-block btn-light mb-3" onClick={handleGetPopular}>Popular movies</button>
 									</div>
 									<div className="">
-										<GenreSelect key={GenreSelect.id} genres={state.genres} data={state}/>
+										<GenreSelect key={GenreSelect.id} genres={state.genres}/>
 									</div>
-									{/* {state.isLoading ? (
-										<CircularProgress/>
-										) : state.isError ? (
-										<p className="text-danger">Data failed to load</p>
-										) : (
-										<MainMenuItem key={MainMenuItem.id} genres={state.genres}/>
-									)} */}
 									<form onSubmit={onSubmit}>
 										<div className="input-group w-100">
 											<input type="text" className="form-control" placeholder="Search" value={state.typedInMovieTitle} onChange={onChange}/>
@@ -197,14 +192,11 @@ function App() {
 						</nav>
 					</div>
 					<main className="col p-5">
+						{state.typedInMovieTitle !== "" ? (<h3 className="mb-3 text-capitalize text-white">Results for: {state.submittedMovieTitle}</h3>) : 
+						state.popular===true ? (<h3 className="mb-3 text-capitalize text-white">Now popular</h3>) : 
+						(<h3 className="mb-3 text-capitalize text-white">Submit a search</h3>)}
 
-						{state.isLoading ? (
-							<CircularProgress/>
-							) : state.isError ? (
-							<p className="text-danger">Data failed to load</p>
-							) : (
-							<MoviesList movies={state.movies} data={state}/>
-						)}
+						{state.isLoading ? (<CircularProgress/>) : state.isError ? (<p className="text-danger">Data failed to load</p>) : (<MoviesList movies={state.movies} data={state}/>)}
 
 						
 					</main>
