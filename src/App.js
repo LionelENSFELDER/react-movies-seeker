@@ -90,7 +90,6 @@ function App() {
 				dispatch({ type: "FETCH_DATA" });
 				try {
 					const result = await axios(`https://api.themoviedb.org/3/search/movie?api_key=${API_Key}&query=${state.submittedMovieTitle}`);
-					console.log(result.data.results);
 					dispatch({
 						type: ACTION.FETCH_DATA_SUCCESS,
 						value: result.data.results,
@@ -108,7 +107,6 @@ function App() {
 			const result = await axios(
 				`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_Key}&language=en-US`
 			);
-			console.log(result.data.genres);
 			dispatch({
 				type: ACTION.FETCH_DATA_GENRES_SUCCESS,
 				value: result.data.genres,

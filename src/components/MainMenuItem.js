@@ -19,7 +19,6 @@ function MainMenuItem({genres}) {
                             x.classList.remove('d-none')
                         }
                     }else if(selectedFilter !== "All" || selectedFilter !== ""){
-                        console.log(selectedFilter);
                         if(x.classList.contains('d-none')){
                             x.classList.remove('d-none')
                         }
