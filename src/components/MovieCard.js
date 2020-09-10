@@ -4,12 +4,14 @@ import React from 'react'
 function MovieCard({movie, data}){
     const genreIds = movie.genre_ids;
     const genres = data.genres;
+    let formatedVote = movie.vote_average;
+    if(Number.isInteger(formatedVote)){formatedVote+=".0"};
     return movie.poster_path ?(
         <div className="col mb-4" data-tag={genreIds.map(x => genres.find(o => o.id === x).name)}>
             <div className="card bg-transparent h-100 text-left border-0 stretched-link" data-toggle="modal" data-target={`#modal_${movie.id}`}>
             <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} className="card-img-top" alt="..."/>
             <div className="position-relative">
-                <span className="movie-vote-pill rounded-circle bg-green p-1 font-weight-bold">{movie.vote_average}</span>
+                <span className="movie-vote-pill rounded-circle bg-green p-1 font-weight-bold">{formatedVote}</span>
             </div>
             <div className="card-body text-white">
                 <h5 className="card-title">{movie.title}</h5>
@@ -48,7 +50,7 @@ function MovieCard({movie, data}){
                                     )}
                                 </small>
                             </p>
-                            <p className="card-text"><small className="text-muted">Vote average: {movie.vote_average}</small></p>
+                            <p className="card-text"><small className="text-muted">Vote average: {formatedVote}</small></p>
                             <p className="card-text">Synopsis: {movie.overview}</p>
                         </div>
                         </div>
