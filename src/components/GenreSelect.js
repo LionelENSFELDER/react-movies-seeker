@@ -35,7 +35,7 @@ function GenreSelect({genres}) {
 
     return (
         <div>
-            <select className="custom-select mb-3" value={selectedFilter} onChange={handleGenreSelected}>
+            <select className="custom-select mb-3 text-white border-0" value={selectedFilter} onChange={handleGenreSelected}>
                 <option value="All" data-filter="All">All</option>
                 {genres.map(x=>
                     <option key={x.id} value={x.name} data-filter={x.name}>{x.name}</option>

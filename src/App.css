@@ -30,6 +30,7 @@ body{
   right:-15px;
   top: -50px;
 }
+/* BACKGROUND */
 .bg-dark-hard{
   background-color: #0B161A;
 }
@@ -38,4 +39,16 @@ body{
 }
 .bg-green{
   background-color: #01F98F;
+}
+/* FORM */
+select, select option, input {
+  /* background: #71869933 !important; */
+  background-color:#0B161A !important;
+  color: #fff !important;
+}
+placeholder{
+  color: #fff !important;
+}
+hr{
+  border: 1px solid #01F98F;
 }

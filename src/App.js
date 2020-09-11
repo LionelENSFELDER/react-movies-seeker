@@ -6,6 +6,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import Logo from './assets/popcorn.svg'
 import MoviesList from './components/MoviesList'
 import GenreSelect from './components/GenreSelect'
+import 'line-awesome/dist/line-awesome/css/line-awesome.min.css'
 import './App.css';
 
 function App() {
@@ -172,35 +173,48 @@ function App() {
 					<div id="menu-column" className="sticky-top col-12 col-md-2 bg-dark-light">
 						<nav className="navbar navbar-expand navbar-dark bg-transparent flex-md-column flex-row align-items-start">
 							<div className="collapse navbar-collapse">
-								<ul className="flex-md-column flex-row navbar-nav w-100 justify-content-between">
-									<div className="mb-5">
-										<img className="mx-auto d-block" src={Logo} alt="Logo" width="100"/>
-									</div>
-									<div className="">
-										<button type="button" className="btn btn-block btn-light mb-3" onClick={handleGetPopular}>Popular movies</button>
-									</div>
-									<div className="">
-										<GenreSelect key={GenreSelect.id} genres={state.genres}/>
-									</div>
-									<form onSubmit={onSubmit}>
-										<div className="input-group w-100">
-											<input type="text" className="form-control" placeholder="Search" value={state.typedInMovieTitle} onChange={onChange}/>
+
+								<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+									<span class="navbar-toggler-icon"></span>
+								</button>
+
+								<div class="collapse navbar-collapse" id="collapsibleNavbar">
+									<ul className="flex-md-column flex-row navbar-nav w-100 justify-content-between">
+										<div className="mb-3">
+											<img className="mx-auto d-block" src={Logo} alt="Logo" width="70"/>
 										</div>
-									</form>            
-								</ul>
+										<div className="">
+											<button type="button" className="btn btn-block bg-dark-hard text-white mb-3" onClick={handleGetPopular}>Popular movies</button>
+										</div>
+										<form onSubmit={onSubmit}>
+											<div className="input-group w-100">
+												<input type="text" className="form-control border-0" placeholder="Search" value={state.typedInMovieTitle} onChange={onChange}/>
+											</div>
+										</form>
+										<hr className="w-100 d-none d-md-block"/>  
+										<div className="">
+											<GenreSelect key={GenreSelect.id} genres={state.genres}/>
+										</div>        
+									</ul>
+								</div>
 							</div>
 						</nav>
 					</div>
 					<main className="col p-5">
-						{state.typedInMovieTitle !== "" ? (<h3 className="mb-3 text-capitalize text-white">Results for: {state.submittedMovieTitle}</h3>) : 
-						state.popular===true ? (<h3 className="mb-3 text-capitalize text-white">Now popular</h3>) : 
-						(<h3 className="mb-3 text-capitalize text-white">Submit a search</h3>)}
+						<div className="sticky-top bg-dark-hard">
+							<div className="py-3">
+								{state.typedInMovieTitle !== "" ? (<h3 className="mb-3 text-capitalize text-white">Results for: {state.submittedMovieTitle}</h3>) : 
+								state.popular===true ? (<h3 className="mb-3 text-capitalize text-white">Now popular</h3>) : 
+								(<h3 className="mb-3 text-capitalize text-white">Submit a search</h3>)}
+							</div>
+						</div>
 
 						{state.isLoading ? (<CircularProgress/>) : state.isError ? (<p className="text-danger">Data failed to load</p>) : (<MoviesList movies={state.movies} data={state}/>)}
 
 						
 					</main>
 				</div>
+				
 			</div>
 		</div>
   	);
